@@ -5,6 +5,7 @@ function Contact() {
   const [name, setName] = useState("");
   const [text, setText] = useState("");
   const [isNotEmpty, setIsNotEmpty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const handleTextChange = (event) => {
     setText(event.target.value);
@@ -16,11 +17,15 @@ function Contact() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Nombre:", name);
   };
 
   const toggleIsNotEmpty = () => {
-    setIsNotEmpty(!isNotEmpty);
+    if (text.trim() === "") {
+      setIsEmpty(!isEmpty);
+    } 
+    if (text.trim() !== "") {
+      setIsNotEmpty(!isNotEmpty);
+    }
   };
 
   return (
@@ -62,7 +67,7 @@ function Contact() {
             placeholder=" Escribe aquí..."
           />
         </div>
-        <button type="submit" onClick={toggleIsNotEmpty}>
+        <button style={{backgroundColor: "green"}} type="submit" onClick={toggleIsNotEmpty}>
           Enviar
         </button>
       </form>
@@ -71,6 +76,7 @@ function Contact() {
       </Link>
       <div style={{ textAlign: "center", marginTop: "15px" }}>
         {isNotEmpty ? "Mensaje enviado con éxito" : ""}
+        {isEmpty ? "Mensaje NO enviado, campos vacíos 🤯" : ""}
       </div>
     </div>
   );
